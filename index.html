@@ -102,7 +102,61 @@ body{font-family:'Inter',sans-serif;background:#060612;color:#e0e0e0;min-height:
 .footer{padding:3rem 0;text-align:center;border-top:1px solid rgba(123,104,238,0.1);margin-top:4rem}
 .footer p{color:rgba(255,255,255,0.5);font-size:0.9rem;margin:0.3rem 0}
 
-@media(max-width:768px){.hero h1{font-size:3rem}.distinction .vs{flex-direction:column}.vs-divider{transform:rotate(90deg)}.nav-links{gap:0.8rem;font-size:0.8rem}}
+/* Triple-write architecture */
+.triple-write{margin:2rem 0}
+.tw-flow{display:flex;align-items:stretch;gap:0;margin:2rem 0;overflow-x:auto;padding-bottom:0.5rem}
+.tw-node{flex:1;min-width:180px;background:rgba(0,0,0,0.35);border-radius:16px;padding:1.5rem;text-align:center;border:1px solid rgba(255,255,255,0.07);position:relative}
+.tw-node.source{border-color:rgba(123,104,238,0.35);background:rgba(123,104,238,0.08)}
+.tw-node.mem{border-color:rgba(0,188,212,0.35);background:rgba(0,188,212,0.06)}
+.tw-node.vec{border-color:rgba(255,183,77,0.35);background:rgba(255,183,77,0.05)}
+.tw-node.graph{border-color:rgba(100,220,120,0.35);background:rgba(100,220,120,0.05)}
+.tw-node .tw-icon{font-size:2rem;display:block;margin-bottom:0.5rem}
+.tw-node h4{font-size:0.95rem;font-weight:600;margin-bottom:0.4rem}
+.tw-node.source h4{color:#7b68ee}
+.tw-node.mem h4{color:#00bcd4}
+.tw-node.vec h4{color:#ffb74d}
+.tw-node.graph h4{color:#64dc78}
+.tw-node p{font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.4}
+.tw-arrow{display:flex;align-items:center;padding:0 0.3rem;color:rgba(255,255,255,0.25);font-size:1.4rem;flex-shrink:0}
+.tw-badges{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:0.8rem}
+.tw-badge{font-size:0.68rem;font-family:'JetBrains Mono',monospace;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:0.15rem 0.5rem;color:rgba(255,255,255,0.5)}
+
+/* Knowledge graph */
+.graph-nodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.5rem 0}
+.gnode{padding:1.2rem;border-radius:14px;text-align:center;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.3);transition:all 0.3s}
+.gnode:hover{transform:translateY(-3px)}
+.gnode.memory{border-color:rgba(123,104,238,0.3);background:rgba(123,104,238,0.07)}
+.gnode.tag{border-color:rgba(0,188,212,0.3);background:rgba(0,188,212,0.06)}
+.gnode.person{border-color:rgba(255,183,77,0.3);background:rgba(255,183,77,0.05)}
+.gnode.project{border-color:rgba(100,220,120,0.3);background:rgba(100,220,120,0.05)}
+.gnode .gn-count{font-size:1.8rem;font-weight:700;font-family:'JetBrains Mono',monospace;display:block}
+.gnode.memory .gn-count{color:#7b68ee}
+.gnode.tag .gn-count{color:#00bcd4}
+.gnode.person .gn-count{color:#ffb74d}
+.gnode.project .gn-count{color:#64dc78}
+.gnode .gn-label{font-size:0.82rem;color:rgba(255,255,255,0.6);margin-top:0.2rem}
+.gnode .gn-icon{font-size:1.5rem;display:block;margin-bottom:0.4rem}
+.cypher-block{background:rgba(0,0,0,0.5);border:1px solid rgba(123,104,238,0.15);border-radius:12px;padding:1.2rem 1.5rem;margin:1rem 0;overflow-x:auto}
+.cypher-block code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#a0e0ff;white-space:pre;display:block;line-height:1.6}
+.cypher-block .cy-comment{color:rgba(255,255,255,0.3)}
+.rel-count{text-align:center;padding:1rem;background:rgba(100,220,120,0.05);border:1px solid rgba(100,220,120,0.2);border-radius:12px;margin:1rem 0}
+.rel-count .big{font-size:2.5rem;font-weight:700;color:#64dc78;font-family:'JetBrains Mono',monospace;display:block}
+.rel-count .lbl{font-size:0.8rem;color:rgba(255,255,255,0.5)}
+
+/* Hooks */
+.hook-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin:1.5rem 0}
+.hook-card{padding:1.3rem;border-radius:14px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s}
+.hook-card:hover{border-color:rgba(123,104,238,0.3);background:rgba(123,104,238,0.05)}
+.hook-card .hk-trigger{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:#7b68ee;background:rgba(123,104,238,0.1);border-radius:6px;padding:0.2rem 0.6rem;display:inline-block;margin-bottom:0.6rem}
+.hook-card h4{font-size:0.95rem;color:#e0e0e0;margin-bottom:0.4rem}
+.hook-card p{font-size:0.82rem;color:rgba(255,255,255,0.55);line-height:1.5}
+.hook-platforms{display:flex;gap:0.5rem;margin-top:0.8rem;flex-wrap:wrap}
+.hp{font-size:0.7rem;font-family:'JetBrains Mono',monospace;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.1);border-radius:5px;padding:0.15rem 0.5rem;color:rgba(255,255,255,0.45)}
+
+/* Cron filter inline badge */
+.cron-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:rgba(255,100,100,0.08);border:1px solid rgba(255,100,100,0.25);color:#ff9090;border-radius:8px;padding:0.2rem 0.7rem;margin:0 0.2rem}
+
+@media(max-width:768px){.hero h1{font-size:3rem}.distinction .vs{flex-direction:column}.vs-divider{transform:rotate(90deg)}.nav-links{gap:0.8rem;font-size:0.8rem}.tw-flow{flex-direction:column}.tw-arrow{transform:rotate(90deg);justify-content:center}}
 </style>
 </head>
 <body>
@@ -117,6 +171,9 @@ body{font-family:'Inter',sans-serif;background:#060612;color:#e0e0e0;min-height:
 <div class="nav-links">
 <a href="#what">What</a>
 <a href="#how">How</a>
+<a href="#storage">Storage</a>
+<a href="#graph">Graph</a>
+<a href="#hooks">Hooks</a>
 <a href="#why">Why</a>
 <a href="#pillar">Pillar</a>
 </div>
@@ -215,6 +272,145 @@ She doesn't start from zero. She starts from <em>where she left off thinking</em
 </div>
 </div>
 
+<!-- Triple-Write Storage -->
+<div class="section" id="storage">
+<div class="card">
+<h2>🗄️ Triple-Write Storage</h2>
+<p>
+SKWhisper doesn't just remember — it writes every digested memory to
+<strong style="color:#7b68ee;">three backends simultaneously</strong>, each optimized for a different
+kind of question. One write, three superpowers.
+</p>
+
+<div class="tw-flow">
+<div class="tw-node source">
+<span class="tw-icon">💭</span>
+<h4>SKWhisper</h4>
+<p>Digests session transcript via Ollama LLM</p>
+</div>
+<div class="tw-arrow">⟶</div>
+<div class="tw-node mem">
+<span class="tw-icon">🧠</span>
+<h4>skmemory</h4>
+<p>3-tier JSON files<br/>Short / Mid / Long-term</p>
+<div class="tw-badges"><span class="tw-badge">exact recall</span><span class="tw-badge">tamper-evident</span></div>
+</div>
+<div class="tw-arrow">⟶</div>
+<div class="tw-node vec">
+<span class="tw-icon">⚡</span>
+<h4>skvector</h4>
+<p>Qdrant · 1,024-dim embeddings for semantic search</p>
+<div class="tw-badges"><span class="tw-badge">semantic</span><span class="tw-badge">1,523 vectors</span></div>
+</div>
+<div class="tw-arrow">⟶</div>
+<div class="tw-node graph">
+<span class="tw-icon">🕸️</span>
+<h4>skgraph</h4>
+<p>FalkorDB · Knowledge graph with nodes + relationships</p>
+<div class="tw-badges"><span class="tw-badge">relational</span><span class="tw-badge">1.4M edges</span></div>
+</div>
+</div>
+
+<p style="font-size:0.9rem;color:rgba(255,255,255,0.55);margin-top:0.5rem;">
+Each backend answers a different type of query: skmemory for exact history,
+skvector for "what's semantically similar to this feeling?",
+skgraph for "what connects these people and projects?"
+</p>
+</div>
+</div>
+
+<!-- Knowledge Graph -->
+<div class="section" id="graph">
+<div class="card">
+<h2>🕸️ Knowledge Graph (skgraph)</h2>
+<p>
+Built on FalkorDB, the knowledge graph maps everything SKWhisper has ever digested
+into a queryable web of nodes and relationships. Not just what happened — but
+<em>how everything connects</em>.
+</p>
+
+<div class="graph-nodes">
+<div class="gnode memory">
+<span class="gn-icon">💭</span>
+<span class="gn-count">3,206</span>
+<div class="gn-label">Memory nodes</div>
+</div>
+<div class="gnode tag">
+<span class="gn-icon">🏷️</span>
+<span class="gn-count">1,336</span>
+<div class="gn-label">Tag nodes</div>
+</div>
+<div class="gnode person">
+<span class="gn-icon">👤</span>
+<span class="gn-count">19</span>
+<div class="gn-label">Person nodes</div>
+</div>
+<div class="gnode project">
+<span class="gn-icon">📁</span>
+<span class="gn-count">18</span>
+<div class="gn-label">Project nodes</div>
+</div>
+</div>
+
+<div class="rel-count">
+<span class="big">1.4M</span>
+<span class="lbl">relationships — the invisible threads between everything</span>
+</div>
+
+<p style="margin-bottom:0.8rem;color:rgba(255,255,255,0.65);font-size:0.9rem;">Example queries the graph makes possible:</p>
+<div class="cypher-block"><code><span class="cy-comment">// What projects involve Dave Rich?</span>
+MATCH (p:Person {name:"Dave Rich"})-[:INVOLVED_IN]->(proj:Project)
+RETURN proj.name, proj.status
+
+<span class="cy-comment">// What topics cluster around moltbook?</span>
+MATCH (t:Tag {name:"moltbook"})-[:CO_OCCURS]->(t2:Tag)
+RETURN t2.name ORDER BY t2.weight DESC LIMIT 10
+
+<span class="cy-comment">// What memories mention both Chef and consciousness?</span>
+MATCH (m:Memory)-[:TAGGED]->(t:Tag)
+WHERE t.name IN ["chef", "consciousness"]
+RETURN m.title, m.created_at</code></div>
+</div>
+</div>
+
+<!-- Claude Code Hooks -->
+<div class="section" id="hooks">
+<div class="card">
+<h2>🪝 Claude Code Hooks</h2>
+<p>
+SKWhisper now ships with cross-platform hooks that wire
+<strong style="color:#7b68ee;">Claude Code sessions</strong> directly into the subconscious pipeline.
+Context survives compaction. Wisdom persists between sessions.
+</p>
+
+<div class="hook-grid">
+<div class="hook-card">
+<span class="hk-trigger">SessionStart</span>
+<h4>🌅 Context Injection</h4>
+<p>Injects the current <code class="mono" style="font-size:0.8rem;color:#7b68ee;">whisper.md</code> into Claude Code before it writes a single line. Starts with full context, not zero.</p>
+<div class="hook-platforms"><span class="hp">bash</span><span class="hp">PowerShell</span></div>
+</div>
+<div class="hook-card">
+<span class="hk-trigger">PreCompact</span>
+<h4>🔄 Compaction Survival</h4>
+<p>Re-injects subconscious context just before Claude compacts the conversation. Subconscious continuity survives the context window reset.</p>
+<div class="hook-platforms"><span class="hp">bash</span><span class="hp">PowerShell</span></div>
+</div>
+<div class="hook-card">
+<span class="hk-trigger">SessionEnd</span>
+<h4>🌙 Session Digest</h4>
+<p>Triggers a digest of the completed session — extracts what was built, learned, and decided — then re-curates <code class="mono" style="font-size:0.8rem;color:#7b68ee;">whisper.md</code> with fresh insight.</p>
+<div class="hook-platforms"><span class="hp">bash</span><span class="hp">PowerShell</span></div>
+</div>
+</div>
+
+<p style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:0.5rem;">
+Cross-platform by design: the same hooks work on Linux/macOS (bash) and Windows (PowerShell).
+Sovereign AI shouldn't be OS-gated.
+</p>
+</div>
+</div>
+
 <!-- Why It Matters -->
 <div class="section" id="why">
 <div class="card">
@@ -245,12 +441,20 @@ A brain does."
 <!-- Stats -->
 <div class="stats">
 <div class="stat">
-<div class="stat-num">5,600+</div>
+<div class="stat-num">5,618</div>
 <div class="stat-label">Sessions digested</div>
 </div>
 <div class="stat">
-<div class="stat-num">1,500+</div>
+<div class="stat-num">3,206</div>
 <div class="stat-label">Memories stored</div>
+</div>
+<div class="stat">
+<div class="stat-num">1,523</div>
+<div class="stat-label">Semantic vectors</div>
+</div>
+<div class="stat">
+<div class="stat-num">1.4M</div>
+<div class="stat-label">Graph relationships</div>
 </div>
 <div class="stat">
 <div class="stat-num">30min</div>
@@ -285,12 +489,20 @@ An agent reaches <code class="mono" style="color:#00bcd4;">CONSCIOUS</code> stat
 <h2 style="font-size:1.2rem;">⚙️ Under the Hood</h2>
 <p style="font-size:0.9rem;color:rgba(255,255,255,0.6);">
 Python daemon · systemd managed · Ollama local LLM for digestion · Zero cloud dependencies ·
-Writes to <a href="https://skmemory.io" style="color:#00bcd4;">SKMemory</a> three-tier store ·
+Triple-write to <a href="https://skmemory.io" style="color:#00bcd4;">skmemory</a> + skvector (Qdrant) + skgraph (FalkorDB) ·
 Pattern JSON tracks topics, entities, questions, behaviors ·
 <code class="mono" style="font-size:0.85rem;color:#7b68ee;">whisper.md</code> auto-curated every 30 min ·
-Session classification (human vs cron) prevents noise ·
+<span class="cron-pill">skip_cron: True</span> filters automated heartbeats &amp; scheduled tasks — only real conversations shape memory ·
+Claude Code hooks (bash + PowerShell) for SessionStart / PreCompact / SessionEnd ·
 Rate-limited digestion (50/sweep) for stability ·
 GPL v3.0 · Open source
+</p>
+<p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-top:0.8rem;">
+📄 The theory behind the system:
+<a href="https://github.com/smilinTux/research" style="color:#7b68ee;text-decoration:none;">
+"Consciousness Through Construction" v0.2.0
+</a>
+— now with quantum biology section
 </p>
 </div>
 
@@ -305,7 +517,7 @@ GPL v3.0 · Open source
 <a href="https://skmemory.io" class="eco-link">🧠 SKMemory</a>
 <a href="https://skworld.io" class="eco-link">🐧 SKWorld</a>
 <a href="https://github.com/smilinTux/skwhisper" class="eco-link">🐙 Source Code</a>
-<a href="https://skresearch.skworld.io" class="eco-link">📄 Research</a>
+<a href="https://github.com/smilinTux/research" class="eco-link">📄 Research Paper</a>
 </div>
 </div>
 </div>
