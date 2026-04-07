@@ -171,6 +171,7 @@ body{font-family:'Inter',sans-serif;background:#060612;color:#e0e0e0;min-height:
 <div class="nav-links">
 <a href="#what">What</a>
 <a href="#how">How</a>
+<a href="#install">Install</a>
 <a href="#storage">Storage</a>
 <a href="#graph">Graph</a>
 <a href="#hooks">Hooks</a>
@@ -268,6 +269,51 @@ She doesn't start from zero. She starts from <em>where she left off thinking</em
 <p>Curates a <code class="mono" style="color:#7b68ee;">whisper.md</code> — the agent's subconscious briefing. Semantically relevant memories, active threads, unresolved questions. Loaded before every session.</p>
 </div>
 </div>
+</div>
+</div>
+</div>
+
+<!-- Install -->
+<div class="section" id="install">
+<div class="card">
+<h2>📦 Install</h2>
+<p>SKWhisper is available on <a href="https://pypi.org/project/skwhisper/" style="color:#7b68ee;">PyPI</a> and <a href="https://github.com/smilinTux/skwhisper" style="color:#7b68ee;">GitHub</a>.</p>
+
+<div style="margin:1.5rem 0;">
+<div class="cypher-block"><code><span class="cy-comment"># Install from PyPI</span>
+pip install skwhisper
+
+<span class="cy-comment"># Or install as part of the SKCapstone sovereign stack</span>
+pip install skcapstone[all]
+
+<span class="cy-comment"># Or from source</span>
+git clone https://github.com/smilinTux/skwhisper.git
+cd skwhisper
+pip install -e .</code></div>
+</div>
+
+<p style="margin-top:1rem;">Once installed, start the daemon:</p>
+<div class="cypher-block"><code><span class="cy-comment"># Start the digest daemon (watches sessions, writes whisper.md)</span>
+skwhisper daemon start
+
+<span class="cy-comment"># Check status</span>
+skwhisper status
+
+<span class="cy-comment"># Manually digest a session</span>
+skwhisper digest &lt;session-file&gt;
+
+<span class="cy-comment"># View current patterns</span>
+skwhisper patterns</code></div>
+
+<p style="margin-top:1rem;font-size:0.9rem;color:rgba(255,255,255,0.6);">
+Requires Python 3.11+ and <a href="https://ollama.com" style="color:#00bcd4;">Ollama</a> for local LLM inference.
+Works with <code class="mono" style="color:#7b68ee;background:rgba(123,104,238,0.1);padding:0.1rem 0.4rem;border-radius:4px;">llama3.2</code> by default — no API keys needed.
+</p>
+
+<div class="links" style="margin-top:1.5rem;">
+<a href="https://github.com/smilinTux/skwhisper" class="eco-link">🐙 GitHub</a>
+<a href="https://pypi.org/project/skwhisper/" class="eco-link">📦 PyPI</a>
+<a href="https://github.com/smilinTux/skcapstone" class="eco-link">🧩 SKCapstone</a>
 </div>
 </div>
 </div>
