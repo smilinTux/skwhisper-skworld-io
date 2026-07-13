@@ -1,0 +1,44 @@
+name: refresh-docs-manifest
+
+# Keeps docs-manifest.json (the /docs viewer's offline fallback) in sync with the
+# source repo's docs/ folder. The live viewer reads the GitHub API directly, so it is
+# always current; this fallback only matters when the API is rate-limited. Self-heals
+# daily so it can never drift. See .github/scripts/docs-manifest-gen.py.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # daily 06:17 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-docs-manifest
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate docs-manifest.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 .github/scripts/docs-manifest-gen.py \
+            "smilinTux/skwhisper" --branch "main" --path "docs" \
+            --out docs-manifest.json
+
+      - name: Commit if changed
+        run: |
+          if [ -z "$(git status --porcelain docs-manifest.json)" ]; then
+            echo "manifest unchanged - nothing to do"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs-manifest.json
+          git commit -m "chore(docs): auto-refresh docs-manifest.json fallback"
+          git push
