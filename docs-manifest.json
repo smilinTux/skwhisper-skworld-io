@@ -2,7 +2,7 @@
   "repo": "smilinTux/skwhisper",
   "branch": "main",
   "path": "docs",
-  "generated": "2026-07-14",
+  "generated": "2026-07-15",
   "note": "Committed fallback for the /docs viewer when the GitHub Contents API is unavailable or rate-limited. Regenerate from: python docs-manifest-gen.py smilinTux/skwhisper --out docs-manifest.json",
   "docs": [
     {
