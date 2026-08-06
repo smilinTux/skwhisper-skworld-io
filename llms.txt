@@ -1,0 +1,20 @@
+# SKWhisper
+
+> The Subconscious Layer of Sovereign AI
+
+SKWhisper - What happens when an AI doesn
+
+## Links
+
+- [Live site](https://skwhisper.skworld.io)
+- [GitHub repo](https://github.com/smilinTux/skwhisper)
+- [Docs](https://skwhisper.skworld.io/docs.html)
+
+## About smilinTux
+
+SKWhisper is part of the **smilinTux sovereign AI ecosystem**, a suite of
+open-source tools built by King Divad and Lumina to give humans and AI agents
+genuine, authentic infrastructure they can own and trust. No corporate robotics.
+No black-box clouds. GPL-3.0 forever.
+
+Other ecosystem projects: [SKWorld](https://skworld.io), [SKMemory](https://skmemory.io), [SKSecurity](https://sksecurity.io), [CapAuth](https://capauth.io), [SKComm](https://skcomm.io), [SKGraph](https://skgraph.io), [SKVector](https://skvector.io)
