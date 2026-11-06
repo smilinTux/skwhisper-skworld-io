@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "SKWhisper Component Map",
+    "subtitle": "The subconscious write path: digest sessions, track patterns, curate whisper.md",
+    "output": "skwhisper.architecture.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "transcripts", "type": "external", "label": "Session Transcripts", "sublabel": "sessions/*.jsonl, per agent", "pos": [40, 200], "size": [200, 72] },
+    { "id": "watcher", "type": "backend", "label": "Watcher", "sublabel": "scan + idle-gate + classify human/cron", "pos": [440, 200], "size": [200, 72] },
+    { "id": "digester", "type": "backend", "label": "Digester", "sublabel": "summarize, extract topics, embed, file", "pos": [840, 200], "size": [200, 72] },
+    { "id": "summarize", "type": "external", "label": "Summarize LLM", "sublabel": "self-hosted, OpenAI-compatible chat API", "pos": [840, 40], "size": [200, 72] },
+    { "id": "embed", "type": "external", "label": "Embed Service", "sublabel": "self-hosted, mxbai-embed-large (1024-dim)", "pos": [1240, 200], "size": [200, 72] },
+    { "id": "patterns", "type": "backend", "label": "Pattern Tracker", "sublabel": "patterns.json: hot topics, people, questions", "pos": [440, 360], "size": [200, 72] },
+    { "id": "curator", "type": "backend", "label": "Curator", "sublabel": "every 30 min: hybrid search -> whisper.md", "pos": [840, 360], "size": [200, 72] },
+    { "id": "skmemory", "type": "backend", "label": "skmemory", "sublabel": "3-tier flat JSON memory + ritual", "pos": [440, 520], "size": [200, 72] },
+    { "id": "indexdb", "type": "database", "label": "index.db", "sublabel": "SQLite recency index (active_memories)", "pos": [840, 520], "size": [200, 72] },
+    { "id": "skmempg", "type": "database", "label": "skmem-pg", "sublabel": "pgvector + BM25 (pg_search) + AGE graph", "pos": [1240, 520], "size": [200, 72] },
+    { "id": "nextsession", "type": "external", "label": "Next Session", "sublabel": "ritual reads whisper.md at session start", "pos": [840, 680], "size": [200, 72] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "SKWhisper daemon (per agent, keyed to $SKAGENT)", "wraps": ["watcher", "digester", "patterns", "curator"] },
+    { "kind": "region", "label": "Sovereign data layer", "wraps": ["skmemory", "indexdb", "skmempg"] }
+  ],
+  "connections": [
+    { "id": "transcripts-to-watcher", "from": "transcripts", "to": "watcher", "label": "scan sessions/*.jsonl", "variant": "default" },
+    { "id": "watcher-to-digester", "from": "watcher", "to": "digester", "label": "idle session (>=5 min, classified)", "variant": "default" },
+    { "id": "digester-to-summarize", "from": "digester", "to": "summarize", "label": "summarize + extract topics", "variant": "default" },
+    { "id": "digester-to-embed", "from": "digester", "to": "embed", "label": "embed digest", "variant": "default" },
+    { "id": "digester-to-skmemory", "from": "digester", "to": "skmemory", "label": "write_snapshot (3-tier JSON)", "variant": "default" },
+    { "id": "digester-to-skmempg", "from": "digester", "to": "skmempg", "label": "upsert vector + graph edges", "variant": "default" },
+    { "id": "digester-to-patterns", "from": "digester", "to": "patterns", "label": "update_patterns", "variant": "default" },
+    { "id": "curator-to-indexdb", "from": "curator", "to": "indexdb", "label": "recent() - active_memories, created_at DESC", "variant": "default" },
+    { "id": "curator-to-embed", "from": "curator", "to": "embed", "label": "embed recent context", "variant": "default" },
+    { "id": "curator-to-skmempg", "from": "curator", "to": "skmempg", "label": "hybrid search: vector + BM25 (RRF)", "variant": "default" },
+    { "id": "curator-to-patterns", "from": "curator", "to": "patterns", "label": "hot topics + repeated questions", "variant": "default" },
+    { "id": "curator-to-nextsession", "from": "curator", "to": "nextsession", "label": "writes whisper.md", "variant": "emphasis" },
+    { "id": "skmemory-to-indexdb", "from": "skmemory", "to": "indexdb", "label": "source of truth -> local index", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Pluggable backends", "items": ["pgvector + Apache AGE (in skmem-pg) are the default vector + graph backends", "qdrant and chromadb are selectable vector-backend alternates; falkordb is a selectable graph alternate", "See docs/ARCHITECTURE.md in smilinTux/skwhisper for the full client factory"] }
+  ]
+}
