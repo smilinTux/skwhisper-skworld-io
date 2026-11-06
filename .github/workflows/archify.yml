@@ -1,0 +1,14 @@
+name: archify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  archify:
+    uses: smilinTux/.github/.github/workflows/archify-build.yml@08ab9987405f0aced0d72343f9773976fae6f1ea
